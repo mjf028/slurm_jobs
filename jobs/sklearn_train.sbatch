@@ -19,24 +19,25 @@ export OPENBLAS_NUM_THREADS=4
 python3 - <<'PY'
 import numpy as np, time, os
 from sklearn.datasets import make_classification
-from sklearn.ensemble import RandomForestClassifier
+from sklearn.linear_model import SGDClassifier
 
 print("Threads:", os.environ.get("OMP_NUM_THREADS"))
 
 X, y = make_classification(
-    n_samples=600_000,
-    n_features=40,
-    n_informative=25,
+    n_samples=1_500_000,
+    n_features=60,
+    n_informative=30,
     random_state=42
 )
 
-clf = RandomForestClassifier(
-    n_estimators=200,
-    n_jobs=4,
-    max_depth=20
-)
+clf = SGDClassifier(loss="log_loss", max_iter=1, tol=None)
 
 t0 = time.time()
-clf.fit(X, y)
-print("Training time:", time.time() - t0)
+# "epochs" loop to make it run longer and keep CPU hot
+for epoch in range(30):
+    clf.partial_fit(X, y, classes=np.array([0,1]))
+    if epoch % 5 == 0:
+        print("epoch", epoch, "elapsed", time.time()-t0)
+print("done, total time:", time.time()-t0)
+
 PY
