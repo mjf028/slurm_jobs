@@ -8,7 +8,8 @@
 #SBATCH --time=00:20:00
 #SBATCH --output=output/torch-%j.out
 
-# ---- Conda init (non-interactive safe) ----
+# ---- Conda (NON-INTERACTIVE SAFE) ----
+source /share/apps/anaconda3/2024.06-1/etc/profile.d/conda.sh
 conda activate torch-cpu
 
 # ---- Thread control (CRITICAL for metrics) ----

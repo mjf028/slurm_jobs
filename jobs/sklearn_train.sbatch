@@ -7,6 +7,11 @@
 #SBATCH --time=00:15:00
 #SBATCH --output=output/sklearn-%j.out
 
+
+# ---- Conda (NON-INTERACTIVE SAFE) ----
+source /share/apps/anaconda3/2024.06-1/etc/profile.d/conda.sh
+conda activate sklearn-cpu
+
 export OMP_NUM_THREADS=4
 export MKL_NUM_THREADS=4
 export OPENBLAS_NUM_THREADS=4
