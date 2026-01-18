@@ -19,15 +19,16 @@ from sklearn.ensemble import RandomForestClassifier
 print("Threads:", os.environ.get("OMP_NUM_THREADS"))
 
 X, y = make_classification(
-    n_samples=2_000_000,
-    n_features=50,
-    n_informative=30,
+    n_samples=600_000,
+    n_features=40,
+    n_informative=25,
     random_state=42
 )
 
 clf = RandomForestClassifier(
-    n_estimators=300,
-    n_jobs=4
+    n_estimators=200,
+    n_jobs=4,
+    max_depth=20
 )
 
 t0 = time.time()
